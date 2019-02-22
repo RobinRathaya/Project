@@ -34,4 +34,21 @@ private Employee EmployeeDetailInitialization(ResultSet resultSet) throws SQLExc
 	employee.setName(resultSet.getString("name"));
 	return employee;
 }
+
+/**
+ * 
+ * @param employee
+ * @throws Exception
+ * @return Void
+ */
+public int addEmployee(Employee employee) throws Exception {
+
+	String query = "INSERT INTO EV_EMPLOYEE values(?,?,?,?)";
+
+	Object[] parameters = new Object[] { employee.getId(),
+			employee.getName(), employee.getEmail(), employee.getPassword() };
+	int addEmployeeResult=jdbcTemplate.update(query, parameters);
+	return addEmployeeResult;
+
+}
 }

@@ -15,6 +15,37 @@ public class TopicsDAO {
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	
+	/**
+	 * 
+	 * @param topic
+	 * @throws Exception
+	 * @return void
+	 */
+	public int addTopic(Topics topic) throws Exception {
+		// TODO Auto-generated method stub
+
+		String query = "INSERT INTO EV_TOPICS(name) VALUES(?)";
+		Object[] parameters = new Object[] { topic.getName() };
+		int addTopicResult = jdbcTemplate.update(query, parameters);
+		return addTopicResult;
+	}
+	
+	
+
+	/**
+	 * 
+	 * @param topic
+	 * @throws Exception
+	 * @return void
+	 */
+	public int updateTopic(Topics topic) throws Exception {
+		String query = "UPDATE EV_TOPICS SET name=? WHERE topicid=? ";
+		Object[] parameters = new Object[] { topic.getName(), topic.getId() };
+		int updateTopicResult=jdbcTemplate.update(query, parameters);
+		return updateTopicResult;
+	}
+
 
 	public Topics searchTopicName(int topicId) {
 
@@ -73,5 +104,19 @@ public class TopicsDAO {
 
 		return topic;
 	}
+	/**
+	 * 
+	 * @param topic
+	 * @return void
+	 */
+
+	public int deleteTopic(Topics topic) {
+
+		String query = "DELETE FROM EV_TOPICS WHERE name=?";
+		Object[] parameters = new Object[] { topic.getId() };
+		int deleteTopicResult=jdbcTemplate.update(query, parameters);
+		return deleteTopicResult;
+	}
+
 
 }

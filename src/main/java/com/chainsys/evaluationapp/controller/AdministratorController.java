@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.evaluationapp.dao.AdministratorDAO;
 import com.chainsys.evaluationapp.dao.EmployeeDAO;
+import com.chainsys.evaluationapp.dao.TopicsDAO;
 import com.chainsys.evaluationapp.model.Employee;
 import com.chainsys.evaluationapp.model.Topics;
 
@@ -18,10 +18,11 @@ import com.chainsys.evaluationapp.model.Topics;
 @RequestMapping("/administrator")
 public class AdministratorController {
 
-	@Autowired
-	AdministratorDAO administratorDAO;
+	
 	@Autowired
 	EmployeeDAO employeeDAO;
+	@Autowired
+	TopicsDAO topicDAO;
 
 	@PostMapping("/addUser")
 	public int registeration(@RequestParam("empid") int empid,
@@ -32,7 +33,7 @@ public class AdministratorController {
 		employee.setName(name);
 		employee.setEmail(email);
 		employee.setPassword(password);
-		int noOfRows=administratorDAO.addEmployee(employee);
+		int noOfRows=employeeDAO.addEmployee(employee);
 		return noOfRows;
 
 	}
@@ -42,9 +43,12 @@ public class AdministratorController {
 	{
 		Topics topic=new Topics();
 		topic.setName(topicName);
-		int noOfRows=administratorDAO.addTopic(topic);
+		int noOfRows=topicDAO.addTopic(topic);
 		return noOfRows;	
 	}
+	
+	
+	
 	
 	/*@PostMapping("/deleteTopic")
 	public int removeTopic(@RequestParam("topicName") String topicName) throws Exception

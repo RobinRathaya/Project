@@ -66,7 +66,6 @@ public class EmployeeTopicsDAO {
 		} else {
 			employeeDetails.setUpdatedOn(null);
 		}
-		System.out.println(employeeDetails.employee.getId()+"ETD");
 		return employeeDetails;
 	}
 
