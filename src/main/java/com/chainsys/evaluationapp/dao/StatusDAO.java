@@ -11,22 +11,26 @@ import com.chainsys.evaluationapp.model.Status;
 
 @Repository
 public class StatusDAO {
-@Autowired
-JdbcTemplate jdbcTemplate;
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+
 	public Status searchStatusName(int statusId) {
 		String query = "SELECT s.name FROM EV_STATUS s WHERE s.id=?";
-		Object[] parameters = new Object[] {statusId };
-		Status statusName=jdbcTemplate.queryForObject(query, parameters, (resultSet,row)->{
-			
-			Status name=statusNameIntailization(resultSet);
+		Object[] parameters = new Object[] { statusId };
+		Status statusName = jdbcTemplate.queryForObject(query, parameters, (
+				resultSet, row) -> {
+
+			Status name = statusNameIntailization(resultSet);
 			return name;
 		});
 
 		return statusName;
 	}
-	private Status statusNameIntailization(ResultSet resultSet) throws SQLException {
+
+	private Status statusNameIntailization(ResultSet resultSet)
+			throws SQLException {
 		// TODO Auto-generated method stub
-		Status name=new Status();
+		Status name = new Status();
 		name.setName(resultSet.getString("s.name"));
 		return name;
 	}

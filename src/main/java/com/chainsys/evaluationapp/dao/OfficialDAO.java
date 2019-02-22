@@ -12,6 +12,7 @@ import com.chainsys.evaluationapp.model.Employee;
 import com.chainsys.evaluationapp.model.EmployeeTopics;
 import com.chainsys.evaluationapp.model.Status;
 import com.chainsys.evaluationapp.model.Topics;
+
 @Repository
 public class OfficialDAO {
 
@@ -49,12 +50,11 @@ public class OfficialDAO {
 		return employeeTopicsList;
 	}
 
-	public List<EmployeeTopics> displayEvaluation()
-			throws Exception {
+	public List<EmployeeTopics> displayEvaluation() throws Exception {
 
 		String query = "SELECT et.id,t.name,s.name,et.createdon,et.modifiedon FROM EV_EMPLOYEETOPICS et JOIN EV_EMPLOYEE e ON et.empid=e.id JOIN EV_TOPICS t ON et.topicid=t.topicid JOIN EV_STATUS s ON et.statusid=s.id";
-		
-		List<EmployeeTopics> employeeEvaluationList= jdbcTemplate
+
+		List<EmployeeTopics> employeeEvaluationList = jdbcTemplate
 				.query(query,
 						(resultSet, row) -> {
 
@@ -65,6 +65,7 @@ public class OfficialDAO {
 		return employeeEvaluationList;
 
 	}
+
 	/**
 	 * 
 	 * @param resultSet

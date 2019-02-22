@@ -1,22 +1,23 @@
 package com.chainsys.evaluationapp.model;
 
 public class Topics {
-int id;
-public int getId() {
-	return id;
-}
+	int id;
 
-public void setId(int id) {
-	this.id = id;
-}
+	public int getId() {
+		return id;
+	}
 
-String name;
+	public void setId(int id) {
+		this.id = id;
+	}
 
-public String getName() {
-	return name;
-}
+	String name;
 
-public void setName(String name) {
-	this.name = name;
-}
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

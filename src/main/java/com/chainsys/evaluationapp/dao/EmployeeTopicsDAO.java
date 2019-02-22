@@ -12,11 +12,19 @@ import com.chainsys.evaluationapp.model.Employee;
 import com.chainsys.evaluationapp.model.EmployeeTopics;
 import com.chainsys.evaluationapp.model.Status;
 import com.chainsys.evaluationapp.model.Topics;
+import com.chainsys.evaluationapp.services.Services;
 
 @Repository
 public class EmployeeTopicsDAO {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+
+	@Autowired
+	TopicsDAO topicsDAO;
+
+	@Autowired
+	StatusDAO statusDAO;
+
 	/**
 	 * 
 	 * @return {@link List}
@@ -24,8 +32,6 @@ public class EmployeeTopicsDAO {
 	 */
 	public List<EmployeeTopics> searchEvaluationById(Employee employee)
 			throws Exception {
-		
-		
 
 		String query = "SELECT et.id,et.empid,et.topicid,et.statusid,et.createdon,et.modifiedon FROM EV_EMPLOYEETOPICS et WHERE et.empid=?";
 		Object[] parameters = new Object[] { employee.getId() };
@@ -35,7 +41,8 @@ public class EmployeeTopicsDAO {
 						(resultSet, row) -> {
 
 							EmployeeTopics employeeDetail = employeeTopicsIntailization(resultSet);
-							employeeDetail.getEmployee().setName(employee.getName());
+							employeeDetail.getEmployee().setName(
+									employee.getName());
 							return employeeDetail;
 
 						});
@@ -69,7 +76,20 @@ public class EmployeeTopicsDAO {
 		return employeeDetails;
 	}
 
-	
+	public List<EmployeeTopics> searchEvaluation() {
+		String query = "SELECT et.id,et.empid,et.topicid,et.statusid,et.createdon,et.modifiedon FROM EV_EMPLOYEETOPICS et";
 
+		List<EmployeeTopics> employeeEvaluationDetails = jdbcTemplate
+				.query(query,
+
+						(resultSet, row) -> {
+
+							EmployeeTopics employeeDetail = employeeTopicsIntailization(resultSet);
+							return employeeDetail;
+
+						});
+		return employeeEvaluationDetails;
+
+	}
 
 }

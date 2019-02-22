@@ -15,7 +15,7 @@ public class TopicsDAO {
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-	
+
 	/**
 	 * 
 	 * @param topic
@@ -30,8 +30,6 @@ public class TopicsDAO {
 		int addTopicResult = jdbcTemplate.update(query, parameters);
 		return addTopicResult;
 	}
-	
-	
 
 	/**
 	 * 
@@ -42,10 +40,9 @@ public class TopicsDAO {
 	public int updateTopic(Topics topic) throws Exception {
 		String query = "UPDATE EV_TOPICS SET name=? WHERE topicid=? ";
 		Object[] parameters = new Object[] { topic.getName(), topic.getId() };
-		int updateTopicResult=jdbcTemplate.update(query, parameters);
+		int updateTopicResult = jdbcTemplate.update(query, parameters);
 		return updateTopicResult;
 	}
-
 
 	public Topics searchTopicName(int topicId) {
 
@@ -54,6 +51,7 @@ public class TopicsDAO {
 
 		Topics topic = jdbcTemplate.queryForObject(query, parameters, (
 				resultSet, row) -> {
+
 			Topics topicNames = topicNameIntialization(resultSet);
 
 			return topicNames;
@@ -104,6 +102,7 @@ public class TopicsDAO {
 
 		return topic;
 	}
+
 	/**
 	 * 
 	 * @param topic
@@ -114,9 +113,25 @@ public class TopicsDAO {
 
 		String query = "DELETE FROM EV_TOPICS WHERE name=?";
 		Object[] parameters = new Object[] { topic.getId() };
-		int deleteTopicResult=jdbcTemplate.update(query, parameters);
+		int deleteTopicResult = jdbcTemplate.update(query, parameters);
 		return deleteTopicResult;
 	}
 
+	public Topics searchTopicId(String topicName) {
+
+		System.out.println("search Topic " + topicName);
+		String query = "SELECT topicid,name FROM EV_TOPICS  WHERE name=?";
+		Object[] parameters = new Object[] { topicName };
+
+		Topics fetchedTopic = jdbcTemplate.queryForObject(query, parameters, (
+				resultSet, row) -> {
+			System.out.println(resultSet.getString("name"));
+			Topics topicIdFetch = topicIntialization(resultSet);
+			return topicIdFetch;
+		});
+		System.out.println("aftersearch" + fetchedTopic.getId());
+		return fetchedTopic;
+
+	}
 
 }

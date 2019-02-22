@@ -6,7 +6,7 @@ public class EmployeeTopics {
 	int id;
 	public Employee employee;
 	public Status status;
-	public  Topics topic;
+	public Topics topic;
 	LocalDateTime createdOn;
 	LocalDateTime updatedOn;
 

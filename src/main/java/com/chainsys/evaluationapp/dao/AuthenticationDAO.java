@@ -1,6 +1,5 @@
 package com.chainsys.evaluationapp.dao;
 
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -39,32 +38,29 @@ public class AuthenticationDAO {
 	 * 
 	 * @param employee
 	 * @return {@link Employee}
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 
-	public List<EmployeeTopics> loginValidation(Employee employee) throws Exception {
-		
+	public List<EmployeeTopics> loginValidation(Employee employee)
+			throws Exception {
+
 		String query = "SELECT id,name,email,password FROM EV_EMPLOYEE WHERE email= ? AND password=? ";
 
 		Object[] parameters = new Object[] { employee.getEmail(),
 				employee.getPassword() };
 
-			Employee employeeDetail = jdbcTemplate
-					.queryForObject(
-							query,
-							parameters,
-							(resultSet, row) -> {
-								Employee userInfo = employeeIntialization(resultSet);
-								return userInfo;
-							});
-			System.out.println(employeeDetail.getId()+"login validation");
-			List<EmployeeTopics> userDetails;
-			userDetails=services.fetchUserDetails(employeeDetail);
-			return userDetails;
+		Employee employeeDetail = jdbcTemplate.queryForObject(query,
+				parameters, (resultSet, row) -> {
+					Employee userInfo = employeeIntialization(resultSet);
+					return userInfo;
+				});
+		System.out.println(employeeDetail.getId() + "login validation");
+		List<EmployeeTopics> userDetails;
+		userDetails = services.fetchUserDetails(employeeDetail);
+		return userDetails;
 
 	}
 
-	
 	public int resetPassword(Employee employee) {
 		String query = "UPDATE EV_EMPLOYEE SET password=? WHERE id=?";
 		Object[] parameters = new Object[] { employee.getPassword(),
@@ -72,7 +68,7 @@ public class AuthenticationDAO {
 		int resetPasswordResult = jdbcTemplate.update(query, parameters);
 		return resetPasswordResult;
 	}
-	
+
 	public int updateName(Employee employee) {
 		String query = "UPDATE EV_EMPLOYEE SET name=? WHERE id=?";
 		Object[] parameters = new Object[] { employee.getName(),
