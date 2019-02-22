@@ -1,24 +1,35 @@
 package com.chainsys.evaluationapp.validator;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import com.chainsys.evaluationapp.dao.EmployeeDAO;
+import com.chainsys.evaluationapp.dao.AuthenticationDAO;
+import com.chainsys.evaluationapp.dao.EmployeeTopicsDAO;
 import com.chainsys.evaluationapp.dao.TopicsDAO;
-import com.chainsys.evaluationapp.model.*;
+import com.chainsys.evaluationapp.model.Employee;
+import com.chainsys.evaluationapp.model.EmployeeTopics;
+import com.chainsys.evaluationapp.model.Topics;
 
+@Repository
 public class Validate {
 
-	public static boolean employeeValidation(Employee employee) {
-		EmployeeDAO employeeDAO = new EmployeeDAO();
+	@Autowired
+	TopicsDAO topicsDAO;
+	
+	@Autowired
+	EmployeeTopicsDAO employeeTopicsDAO;
+	
+	@Autowired
+	AuthenticationDAO authenticationDAO;
+	
 
-		return false;
-
-	}
-
-	public static boolean topicValidation(Topics topic) {
-		TopicsDAO topicsDAO = new TopicsDAO();
+	public boolean topicInsertValidation(Topics topic) {
+		
 		boolean isExist = false;
 		Topics topicPresent = topicsDAO.searchTopicId(topic.getName());
+		
 		if (topicPresent.getId() > 0) {
 			isExist = true;
 		} else {
@@ -26,5 +37,39 @@ public class Validate {
 		}
 		return isExist;
 	}
+	
+	public boolean statusInsertValidation(EmployeeTopics employeeTopic) throws Exception
+	{
+		
+		boolean isExist = false;
+		List<EmployeeTopics> employeeTopicsInDB = employeeTopicsDAO.searchEvaluationById(employeeTopic.getEmployee());
+		
+		for(EmployeeTopics employeeTopics:employeeTopicsInDB){
+		if (employeeTopics.getTopic().getId()==employeeTopic.getTopic().getId()) {
+			isExist = true;
+			break;
+		} else {
+			isExist = false;
+		}
+		}
+		return isExist;
+		
+	}
+	public boolean passwordValidation(Employee employee)
+	{
+		boolean isExists=false;
+		Employee employeeDetails=authenticationDAO.searchPasswordExists(employee);
+		if(employeeDetails.getId()>0)
+		{
+			isExists=true;
+		}
+		else
+		{
+			isExists=false;
+		}
+		return isExists;
+		
+	}
+	
 
 }

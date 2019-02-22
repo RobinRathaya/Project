@@ -27,12 +27,35 @@ public class StatusDAO {
 		return statusName;
 	}
 
+	public Status searchStatusId(String statusName) {
+		String query = "SELECT s.id FROM EV_STATUS s WHERE s.name=?";
+		Object[] parameters = new Object[] { statusName };
+		Status statusDeatils = jdbcTemplate.queryForObject(query, parameters, (
+				resultSet, row) -> {
+
+			Status statusDetail = statusIdIntailization(resultSet);
+			return statusDetail;
+		});
+
+		return statusDeatils;
+	}
+
 	private Status statusNameIntailization(ResultSet resultSet)
 			throws SQLException {
 		// TODO Auto-generated method stub
 		Status name = new Status();
 		name.setName(resultSet.getString("s.name"));
+
 		return name;
+	}
+	
+	private Status statusIdIntailization(ResultSet resultSet)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		Status status = new Status();
+		status.setId(resultSet.getInt("s.id"));
+
+		return status;
 	}
 
 }

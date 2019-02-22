@@ -119,17 +119,17 @@ public class TopicsDAO {
 
 	public Topics searchTopicId(String topicName) {
 
-		System.out.println("search Topic " + topicName);
 		String query = "SELECT topicid,name FROM EV_TOPICS  WHERE name=?";
 		Object[] parameters = new Object[] { topicName };
 
 		Topics fetchedTopic = jdbcTemplate.queryForObject(query, parameters, (
 				resultSet, row) -> {
-			System.out.println(resultSet.getString("name"));
+
 			Topics topicIdFetch = topicIntialization(resultSet);
+
 			return topicIdFetch;
 		});
-		System.out.println("aftersearch" + fetchedTopic.getId());
+
 		return fetchedTopic;
 
 	}

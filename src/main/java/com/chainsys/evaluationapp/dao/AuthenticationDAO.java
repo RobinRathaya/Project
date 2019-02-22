@@ -29,8 +29,10 @@ public class AuthenticationDAO {
 	private Employee employeeIntialization(ResultSet resultSet)
 			throws SQLException {
 		Employee employee = new Employee();
+		
 		employee.setId(resultSet.getInt("id"));
 		employee.setName(resultSet.getString("name"));
+
 		return employee;
 	}
 
@@ -67,6 +69,25 @@ public class AuthenticationDAO {
 				employee.getId() };
 		int resetPasswordResult = jdbcTemplate.update(query, parameters);
 		return resetPasswordResult;
+	}
+
+	public Employee searchPasswordExists(Employee employee) {
+		String query = "SELECT id,name FROM EV_EMPLOYEE WHERE password=?";
+		Object[] parameters = new Object[] { employee.getPassword(), };
+		Employee employeeDetails = jdbcTemplate.queryForObject(query,
+				parameters, (resultSet, row) -> {
+					if(!resultSet.equals(null)){
+					Employee employeeDetail = employeeIntialization(resultSet);
+					return employeeDetail;
+					}
+					else
+					{
+						Employee employee1=null;
+						return employee1;
+					}
+				});
+
+		return employeeDetails;
 	}
 
 	public int updateName(Employee employee) {

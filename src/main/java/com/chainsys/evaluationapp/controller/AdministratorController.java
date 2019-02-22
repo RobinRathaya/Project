@@ -17,6 +17,7 @@ import com.chainsys.evaluationapp.model.Employee;
 import com.chainsys.evaluationapp.model.EmployeeTopics;
 import com.chainsys.evaluationapp.model.Topics;
 import com.chainsys.evaluationapp.services.Services;
+import com.chainsys.evaluationapp.validator.Validate;
 
 @CrossOrigin
 @RestController
@@ -31,6 +32,8 @@ public class AdministratorController {
 	EmployeeTopicsDAO employeeTopicsDAO;
 	@Autowired
 	Services services;
+	@Autowired
+	Validate validator;
 
 	@PostMapping("/addUser")
 	public int registeration(@RequestParam("empid") int empid,
@@ -50,10 +53,16 @@ public class AdministratorController {
 	@PostMapping("/addTopic")
 	public int insertTopic(@RequestParam("topicName") String topicName)
 			throws Exception {
+		int noOfRows = 0;
 		Topics topic = new Topics();
-
 		topic.setName(topicName);
-		int noOfRows = topicDAO.addTopic(topic);
+		boolean isExists = validator.topicInsertValidation(topic);
+		System.out.println(isExists);
+		if (!isExists) {
+			noOfRows = topicDAO.addTopic(topic);
+		}
+		else
+			throw new Exception("Already exists in database");
 		return noOfRows;
 	}
 

@@ -12,7 +12,6 @@ import com.chainsys.evaluationapp.model.Employee;
 import com.chainsys.evaluationapp.model.EmployeeTopics;
 import com.chainsys.evaluationapp.model.Status;
 import com.chainsys.evaluationapp.model.Topics;
-import com.chainsys.evaluationapp.services.Services;
 
 @Repository
 public class EmployeeTopicsDAO {
@@ -91,5 +90,7 @@ public class EmployeeTopicsDAO {
 		return employeeEvaluationDetails;
 
 	}
+	
+	
 
 }
