@@ -21,7 +21,7 @@ public class Services {
 	StatusDAO statusDAO;
 
 	public List<EmployeeTopics> fetchUserDetails(Employee employee) throws Exception {
-		System.out.println("fetchUD"+employee.getId());
+		
 		List<EmployeeTopics> employeeEvaluationDetails = employeeTopicsDAO
 				.searchEvaluationById(employee);
 		
@@ -29,7 +29,7 @@ public class Services {
 
 			employeeDetail.setTopic(topicsDAO.searchTopicName(employeeDetail
 					.getTopic().getId()));
-			System.out.println(employeeDetail.getTopic().getName());
+	
 
 		});
 		

@@ -109,18 +109,14 @@ public class AdministratorDAO {
 		return deleteTopicResult;
 	}
 
-	/**
-	 * 
-	 * @param topic
-	 * @return void
-	 */
-
+/*	
 	public int deleteEmployee(Employee employee) {
 
 		String query = "DELETE FROM EV_EMPLOYEE WHERE id=?";
 		Object[] parameters = new Object[] { employee.getId() };
 		int deleteEmployeeResult=jdbcTemplate.update(query, parameters);
 		return deleteEmployeeResult;
-	}
+	}*/
+	
 
 }

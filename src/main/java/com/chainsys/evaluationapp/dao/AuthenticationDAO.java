@@ -64,24 +64,7 @@ public class AuthenticationDAO {
 
 	}
 
-	/**
-	 * 
-	 * @param employee
-	 * @throws Exception
-	 * @return Void
-	 */
-	public int addEmployee(Employee employee) throws Exception {
-
-		String query = "INSERT INTO EV_EMPLOYEE values(?,?,?,?)";
-
-		Object[] parameters = new Object[] { employee.getId(),
-				employee.getName(), employee.getEmail(), employee.getPassword() };
-
-		int insertResult = jdbcTemplate.update(query, parameters);
-		return insertResult;
-
-	}
-
+	
 	public int resetPassword(Employee employee) {
 		String query = "UPDATE EV_EMPLOYEE SET password=? WHERE id=?";
 		Object[] parameters = new Object[] { employee.getPassword(),

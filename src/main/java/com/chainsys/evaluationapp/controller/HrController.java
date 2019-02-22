@@ -8,27 +8,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.evaluationapp.dao.AuthenticationDAO;
 import com.chainsys.evaluationapp.model.Employee;
 import com.chainsys.evaluationapp.model.EmployeeTopics;
+import com.chainsys.evaluationapp.services.Services;
 
 @RestController
-@RequestMapping("/evaluation")
-public class UserController {
-
+@RequestMapping("/HR")
+public class HrController {
 	@Autowired
-	public AuthenticationDAO authenticationDAO;
+	Services services;
 
 	@PostMapping("/login")
-	public List<EmployeeTopics> login(@RequestParam("email") String email,
-			@RequestParam("password") String password) throws Exception {
+	public List<EmployeeTopics> login(@RequestParam("empid") int empid)
+			throws Exception {
 
 		Employee employee = new Employee();
-		employee.setEmail(email);
-		employee.setPassword(password);
-		List<EmployeeTopics> userDetails = authenticationDAO
-				.loginValidation(employee);
+		employee.setId(empid);
+		List<EmployeeTopics> userDetails = services.fetchUserDetails(employee);
+				
 		return userDetails;
 	}
-	
+
 }

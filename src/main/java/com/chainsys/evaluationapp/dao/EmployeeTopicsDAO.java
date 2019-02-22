@@ -25,7 +25,7 @@ public class EmployeeTopicsDAO {
 	public List<EmployeeTopics> searchEvaluationById(Employee employee)
 			throws Exception {
 		
-		System.out.println("sed"+employee.getId());
+		
 
 		String query = "SELECT et.id,et.empid,et.topicid,et.statusid,et.createdon,et.modifiedon FROM EV_EMPLOYEETOPICS et WHERE et.empid=?";
 		Object[] parameters = new Object[] { employee.getId() };
