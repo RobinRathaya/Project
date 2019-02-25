@@ -120,8 +120,8 @@ public class Services {
 						.getEmployee().getName());
 				rowIndex=sheetName.getLastRowNum()+1;
 				cellIndex=0;	
-				System.out.println("row"+rowIndex+"cell"+cellIndex);
 				row=sheetName.createRow(rowIndex++);
+				sheetName.autoSizeColumn(3);
 				row.createCell(cellIndex++).setCellValue(evaluationInfo.getTopic().getName());
 				row.createCell(cellIndex++).setCellValue(evaluationInfo.getStatus().getName());
 			}
