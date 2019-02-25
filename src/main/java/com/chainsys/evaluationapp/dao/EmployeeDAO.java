@@ -81,9 +81,9 @@ public class EmployeeDAO {
 
 	}
 
-	public Employee searchEmployeeName(Employee employee) {
+	public Employee searchEmployeeName(int id) {
 		String query = "SELECT id,name FROM EV_EMPLOYEE WHERE id=?";
-		Object[] parameters = new Object[] { employee.getId() };
+		Object[] parameters = new Object[] { id };
 		Employee employeeDetails = jdbcTemplate
 				.queryForObject(
 						query,
@@ -100,9 +100,10 @@ public class EmployeeDAO {
 	public Employee employeeNameInitialization(ResultSet resultSet)
 			throws SQLException {
 		Employee employee = new Employee();
-
 		employee.setId(resultSet.getInt("id"));
 		employee.setName(resultSet.getString("name"));
 		return employee;
 	}
+
+		
 }

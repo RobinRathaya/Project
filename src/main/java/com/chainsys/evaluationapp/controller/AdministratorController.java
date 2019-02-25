@@ -1,5 +1,6 @@
 package com.chainsys.evaluationapp.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,14 @@ public class AdministratorController {
 				.searchEvaluation();
 
 		return services.fetchUserTopicsDetails(employeeTopicsList);
+	}
+	
+	@GetMapping("/displayInfo")
+	public void display() throws IOException
+	{
+		List<EmployeeTopics> evalList=employeeTopicsDAO.searchEvaluation();
+		services.fetchUserTopicsDetails(evalList);
+		services.employeeEvaluationDetail(evalList);
 	}
 
 }
